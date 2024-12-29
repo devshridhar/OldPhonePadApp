@@ -57,7 +57,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [ build-test ]
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -77,25 +77,27 @@ jobs:
             /p:PublishTrimmed=true `
             -o ./publish
 
-      - name: Generate Tag
-        id: generate_tag
-        run: echo "TAG=release-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-
-      - name: Push Tag to Repository
-        env:
-          TAG: ${{ env.TAG }}
+      # Ensure a valid tag exists
+      - name: Create or Use Existing Tag
+        id: tag_step
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          TAG_NAME=$(git describe --tags --abbrev=0 || echo "v1.0.0")
+          echo "tag=$TAG_NAME" >> $GITHUB_ENV
+
+      - name: Push Tag (If New)
+        env:
+          TAG: ${{ env.tag }}
+        run: |
           git tag $TAG
-          git push origin $TAG
+          git push origin $TAG || echo "Tag already exists"
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ env.TAG }}
-          name: Release ${{ env.TAG }}
-          body: "Release for ${{ env.TAG }}"
+          tag: ${{ env.tag }}
+          name: Release ${{ env.tag }}
+          body: "Release for ${{ env.tag }}"
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
           updateOnlyUnreleased: true
+  
