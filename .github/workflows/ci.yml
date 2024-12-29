@@ -77,23 +77,25 @@ jobs:
             /p:PublishTrimmed=true `
             -o ./publish
 
-      - name: Get Current Timestamp
-        id: timestamp
-        run: echo "tag=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+      - name: Generate Tag
+        id: generate_tag
+        run: echo "TAG=release-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
-      - name: Create Git Tag
+      - name: Push Tag to Repository
+        env:
+          TAG: ${{ env.TAG }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag ${{ env.tag }}
-          git push origin ${{ env.tag }}
+          git tag $TAG
+          git push origin $TAG
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ env.tag }}
-          name: Release ${{ env.tag }}
-          body: "Release for ${{ env.tag }}"
+          tag: ${{ env.TAG }}
+          name: Release ${{ env.TAG }}
+          body: "Release for ${{ env.TAG }}"
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
           updateOnlyUnreleased: true
