@@ -21,6 +21,9 @@ The application was designed to handle inputs that include:
 
 ## Demo
 
+![image](https://github.com/user-attachments/assets/49796686-a8a1-4ae6-adba-4c60776fb9b3)
+
+
 Documentation: https://devshridhar.github.io/OldPhonePadApp/index.html
 
 EXE File: https://github.com/devshridhar/OldPhonePadApp/releases/download/main/OldPhonePadApp.exe
