@@ -1,76 +1,70 @@
-name: .NET CI Workflow
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  pull_request_target:
+    types: [opened, synchronize]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Setup .NET
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0'
 
-      # Restore dependencies
-      - name: Restore Dependencies
+      - name: Install dependencies
         run: dotnet restore
 
-      # Build the application
-      - name: Build
-        run: dotnet build --no-restore --configuration Debug
+      - name: Build the project
+        run: dotnet build --no-restore --configuration Release
 
-      # Run tests with coverage
-      - name: Run Tests with Coverage
-        run: dotnet test --collect:"XPlat Code Coverage"
+      - name: Run unit tests
+        run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
 
-      # Generate Coverage Report
-      - name: Generate Coverage Report
-        run: |
-          dotnet tool install -g dotnet-reportgenerator-globaltool
-          reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage -reporttypes:Html
-      - name: Upload Coverage Report
+      - name: Upload Code Coverage
         uses: actions/upload-artifact@v3
         with:
-          name: coverage-report
-          path: coverage
+          name: code-coverage-report
+          path: $(System.DefaultWorkingDirectory)/TestResults/
 
-      # Check code formatting
-      - name: Check Code Formatting
-        run: dotnet format --verify-no-changes
+      - name: Format Code
+        run: dotnet format --check
 
-  documentation:
+  generate-docs:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen
+
       - name: Generate Documentation
-        run: doxygen Doxyfile
+        run: |
+          cd src/OldPhonePadApp
+          doxygen Doxyfile
 
       - name: Upload Documentation
         uses: actions/upload-artifact@v3
         with:
           name: documentation
-          path: docs/
+          path: src/OldPhonePadApp/docs/html
 
-  release:
+  create-release:
+    if: github.event_name == 'push'
+    needs: [build-test]
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup .NET
@@ -78,13 +72,16 @@ jobs:
         with:
           dotnet-version: '9.0'
 
-      - name: Build for Release
-        run: dotnet publish --configuration Release --output ./publish
+      - name: Build the project
+        run: |
+          dotnet publish -c Release -o ./publish
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
-          files: ./publish/**
+          body: "Release for ${{ github.ref_name }}"
+          artifacts: ./publish/**
+          token: ${{ secrets.GITHUB_TOKEN }}
+
