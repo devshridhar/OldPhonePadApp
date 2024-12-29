@@ -36,7 +36,7 @@ jobs:
           path: $(System.DefaultWorkingDirectory)/TestResults/
 
       - name: Format Code
-        run: dotnet format --check
+        run: dotnet format src/OldPhonePadApp/OldPhonePadApp.sln --check
 
   generate-docs:
     runs-on: ubuntu-latest
@@ -48,9 +48,7 @@ jobs:
         run: sudo apt-get install -y doxygen
 
       - name: Generate Documentation
-        run: |
-          cd src/OldPhonePadApp
-          doxygen Doxyfile
+        run: doxygen Doxyfile
 
       - name: Upload Documentation
         uses: actions/upload-artifact@v3
@@ -84,4 +82,3 @@ jobs:
           body: "Release for ${{ github.ref_name }}"
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
-
