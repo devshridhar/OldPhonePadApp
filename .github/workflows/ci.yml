@@ -77,19 +77,17 @@ jobs:
             /p:PublishTrimmed=true `
             -o ./publish
 
-      # Ensure a valid tag exists
       - name: Create or Use Existing Tag
         id: tag_step
+        shell: pwsh
         run: |
-          TAG_NAME=$(git describe --tags --abbrev=0 || echo "v1.0.0")
-          echo "tag=$TAG_NAME" >> $GITHUB_ENV
-
-      - name: Push Tag (If New)
-        env:
-          TAG: ${{ env.tag }}
-        run: |
-          git tag $TAG
-          git push origin $TAG || echo "Tag already exists"
+          $tagName = git describe --tags --abbrev=0 2>$null
+          if (-not $tagName) {
+            $tagName = "v1.0.0"
+            git tag $tagName
+            git push origin $tagName
+          }
+          echo "tag=$tagName" >> $env:GITHUB_ENV
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -100,4 +98,5 @@ jobs:
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
           updateOnlyUnreleased: true
+  
   
