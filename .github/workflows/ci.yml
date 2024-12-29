@@ -77,17 +77,29 @@ jobs:
             /p:PublishTrimmed=true `
             -o ./publish
 
-      - name: Create or Use Existing Tag
+      - name: Create or Increment Tag
         id: tag_step
         shell: pwsh
         run: |
-          $tagName = git describe --tags --abbrev=0 2>$null
-          if (-not $tagName) {
-            $tagName = "v1.0.0"
-            git tag $tagName
-            git push origin $tagName
+          $latestTag = git describe --tags --abbrev=0 2>$null
+          if (-not $latestTag) {
+            # Default to v1.0.0 if no tags exist
+            $newTag = "v1.0.0"
+          } else {
+            # Increment the version (assumes semantic versioning: vX.Y.Z)
+            $parts = $latestTag.TrimStart("v").Split(".")
+            $major = [int]$parts[0]
+            $minor = [int]$parts[1]
+            $patch = [int]$parts[2] + 1
+            $newTag = "v$major.$minor.$patch"
           }
-          echo "tag=$tagName" >> $env:GITHUB_ENV
+          # Check if the new tag exists on the remote
+          $remoteTags = git ls-remote --tags origin | ForEach-Object { ($_ -split 'refs/tags/')[-1].Trim() }
+          if ($remoteTags -notcontains $newTag) {
+            git tag $newTag
+            git push origin $newTag
+          }
+          echo "tag=$newTag" >> $env:GITHUB_ENV
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -98,5 +110,6 @@ jobs:
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
           updateOnlyUnreleased: true
+  
   
   
