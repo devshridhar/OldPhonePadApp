@@ -35,7 +35,7 @@ jobs:
           name: code-coverage-report
           path: $(System.DefaultWorkingDirectory)/TestResults/
 
-  generate-doc:
+  generate-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -47,18 +47,11 @@ jobs:
       - name: Generate Documentation
         run: doxygen Doxyfile
 
-      - name: Verify Documentation
-        run: ls src/OldPhonePadApp/docs/html
-
-      - name: Add .nojekyll File
-        run: echo "" > src/OldPhonePadApp/docs/html/.nojekyll
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: src/OldPhonePadApp/docs/html
-
+          publish_dir: docs/html
 
   create-release:
     if: github.event_name == 'push'
