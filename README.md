@@ -26,7 +26,7 @@ The application was designed to handle inputs that include:
 
 Documentation: https://devshridhar.github.io/OldPhonePadApp/index.html
 
-EXE File: https://github.com/devshridhar/OldPhonePadApp/releases/download/main/OldPhonePadApp.exe
+EXE File: [https://github.com/devshridhar/OldPhonePadApp/releases/download/main/OldPhonePadApp.exe](https://github.com/devshridhar/OldPhonePadApp/releases/download/v1.0.0/OldPhonePadApp.exe)
 
 ### Online Documentation
 The generated documentation for the project can be accessed [here](https://devshridhar.github.io/OldPhonePadApp/index.html).
