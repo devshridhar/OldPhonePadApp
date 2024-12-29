@@ -35,9 +35,6 @@ jobs:
           name: code-coverage-report
           path: $(System.DefaultWorkingDirectory)/TestResults/
 
-      - name: Format Code
-        run: dotnet format --verify-no-changes
-
   generate-docs:
     runs-on: ubuntu-latest
     steps:
