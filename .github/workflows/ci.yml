@@ -85,3 +85,4 @@ jobs:
           body: "Release for ${{ github.ref_name }}"
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
+          updateOnlyUnreleased: true

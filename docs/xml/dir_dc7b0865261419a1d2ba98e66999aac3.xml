@@ -1,11 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.0" xml:lang="en-US">
-  <compounddef id="namespace_system_1_1_text" kind="namespace" language="C#">
-    <compoundname>System::Text</compoundname>
+  <compounddef id="dir_dc7b0865261419a1d2ba98e66999aac3" kind="dir">
+    <compoundname>src/OldPhonePadApp</compoundname>
+    <innerfile refid="_old_phone_pad_processor_8cs">OldPhonePadProcessor.cs</innerfile>
+    <innerfile refid="_program_8cs">Program.cs</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="3" column="18"/>
+    <location file="src/OldPhonePadApp/"/>
   </compounddef>
 </doxygen>

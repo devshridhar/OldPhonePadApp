@@ -2,6 +2,22 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.0" xml:lang="en-US">
   <compounddef id="class_old_phone_pad_app_1_1_old_phone_pad_processor" kind="class" language="C#" prot="public">
     <compoundname>OldPhonePadApp::OldPhonePadProcessor</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_old_phone_pad_app_1_1_old_phone_pad_processor_1a387d33b8ee0a3a90c8b7bb0cba69c182" prot="private" static="no" mutable="no">
+        <type>readonly ILogger&lt; <ref refid="class_old_phone_pad_app_1_1_old_phone_pad_processor" kindref="compound">OldPhonePadProcessor</ref> &gt;</type>
+        <definition>readonly ILogger&lt;OldPhonePadProcessor&gt; OldPhonePadApp.OldPhonePadProcessor._logger</definition>
+        <argsstring></argsstring>
+        <name>_logger</name>
+        <qualifiedname>OldPhonePadApp.OldPhonePadProcessor._logger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="13" column="34" bodyfile="src/OldPhonePadApp/OldPhonePadProcessor.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
     <sectiondef kind="private-static-attrib">
       <memberdef kind="variable" id="class_old_phone_pad_app_1_1_old_phone_pad_processor_1af7570c98466b080404a29c607ebf0b94" prot="private" static="yes" mutable="no">
         <type>readonly Dictionary&lt; char, string &gt;</type>
@@ -9,7 +25,7 @@
         <argsstring></argsstring>
         <name>KeypadMapping</name>
         <qualifiedname>OldPhonePadApp.OldPhonePadProcessor.KeypadMapping</qualifiedname>
-        <initializer>= new ()
+        <initializer>= new()
         {
             { &apos;1&apos;, string.Empty },
             { &apos;2&apos;, &quot;ABC&quot; },
@@ -20,20 +36,47 @@
             { &apos;7&apos;, &quot;PQRS&quot; },
             { &apos;8&apos;, &quot;TUV&quot; },
             { &apos;9&apos;, &quot;WXYZ&quot; },
-            { &apos;0&apos;, &quot; &quot; },
+            { &apos;0&apos;, &quot; &quot; }
         }</initializer>
         <briefdescription>
-<para>Mapping of keypad buttons to their respective characters. </para>
         </briefdescription>
         <detaileddescription>
-<para>Static mapping of keypad buttons to their respective characters. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="OldPhonePadProcessor.cs" line="30" column="44" bodyfile="OldPhonePadProcessor.cs" bodystart="30" bodyend="42"/>
+        <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="24" column="44" bodyfile="src/OldPhonePadApp/OldPhonePadProcessor.cs" bodystart="24" bodyend="36"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_old_phone_pad_app_1_1_old_phone_pad_processor_1a666066e6fbec68e2c2870230641971d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OldPhonePadApp.OldPhonePadProcessor.OldPhonePadProcessor</definition>
+        <argsstring>(ILogger&lt; OldPhonePadProcessor &gt; logger)</argsstring>
+        <name>OldPhonePadProcessor</name>
+        <qualifiedname>OldPhonePadApp.OldPhonePadProcessor.OldPhonePadProcessor</qualifiedname>
+        <param>
+          <type>ILogger&lt; <ref refid="class_old_phone_pad_app_1_1_old_phone_pad_processor" kindref="compound">OldPhonePadProcessor</ref> &gt;</type>
+          <declname>logger</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a new instance of the <ref refid="class_old_phone_pad_app_1_1_old_phone_pad_processor" kindref="compound">OldPhonePadProcessor</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logger</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The logger instance.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="19" column="16" bodyfile="src/OldPhonePadApp/OldPhonePadProcessor.cs" bodystart="19" bodyend="22"/>
+      </memberdef>
       <memberdef kind="function" id="class_old_phone_pad_app_1_1_old_phone_pad_processor_1a0979ccd19fa227a7955c26bf118b6c81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>string</type>
         <definition>string OldPhonePadApp.OldPhonePadProcessor.ProcessInput</definition>
@@ -53,29 +96,17 @@
 <parametername>input</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The input string containing key presses, spaces (pauses), backspaces (*), and a send symbol (#). </para>
+<para>The input string containing key presses.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A decoded message as a string. Returns an empty string if the input is invalid or incomplete. </para>
-</simplesect>
-</para>
-<para>Decodes input strings from an old phone keypad. <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>input</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The input string containing key presses, spaces, and special characters (* or #). </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>A decoded string message. Returns an empty string if input is invalid or incomplete. </para>
+<simplesect kind="return"><para>A decoded message as a string.</para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="OldPhonePadProcessor.cs" line="58" column="23" bodyfile="OldPhonePadProcessor.cs" bodystart="58" bodyend="123"/>
+        <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="43" column="23" bodyfile="src/OldPhonePadApp/OldPhonePadProcessor.cs" bodystart="43" bodyend="111"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="private-func">
@@ -127,48 +158,23 @@
 </parameteritem>
 </parameterlist>
 </para>
-<para>Appends the decoded character corresponding to a key press. <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>result</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The string builder holding the decoded message. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>key</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The key pressed on the keypad. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>pressCount</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The number of consecutive presses for the key. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="OldPhonePadProcessor.cs" line="137" column="22" bodyfile="OldPhonePadProcessor.cs" bodystart="137" bodyend="144"/>
+        <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="119" column="22" bodyfile="src/OldPhonePadApp/OldPhonePadProcessor.cs" bodystart="119" bodyend="126"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
 <para>Processes inputs for an old phone keypad to decode messages. </para>
     </briefdescription>
     <detaileddescription>
-<para>A processor for decoding input sequences from an old-style phone keypad. </para>
     </detaileddescription>
-    <location file="OldPhonePadProcessor.cs" line="21" column="11" bodyfile="OldPhonePadProcessor.cs" bodystart="22" bodyend="145"/>
+    <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="11" column="11" bodyfile="src/OldPhonePadApp/OldPhonePadProcessor.cs" bodystart="12" bodyend="127"/>
     <listofallmembers>
+      <member refid="class_old_phone_pad_app_1_1_old_phone_pad_processor_1a387d33b8ee0a3a90c8b7bb0cba69c182" prot="private" virt="non-virtual"><scope>OldPhonePadApp::OldPhonePadProcessor</scope><name>_logger</name></member>
       <member refid="class_old_phone_pad_app_1_1_old_phone_pad_processor_1abe40ae6951ff8c28f12510c3bd5215c6" prot="private" virt="non-virtual"><scope>OldPhonePadApp::OldPhonePadProcessor</scope><name>AppendKeyPress</name></member>
       <member refid="class_old_phone_pad_app_1_1_old_phone_pad_processor_1af7570c98466b080404a29c607ebf0b94" prot="private" virt="non-virtual"><scope>OldPhonePadApp::OldPhonePadProcessor</scope><name>KeypadMapping</name></member>
+      <member refid="class_old_phone_pad_app_1_1_old_phone_pad_processor_1a666066e6fbec68e2c2870230641971d5" prot="public" virt="non-virtual"><scope>OldPhonePadApp::OldPhonePadProcessor</scope><name>OldPhonePadProcessor</name></member>
       <member refid="class_old_phone_pad_app_1_1_old_phone_pad_processor_1a0979ccd19fa227a7955c26bf118b6c81" prot="public" virt="non-virtual"><scope>OldPhonePadApp::OldPhonePadProcessor</scope><name>ProcessInput</name></member>
     </listofallmembers>
   </compounddef>

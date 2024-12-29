@@ -6,6 +6,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="OldPhonePadProcessor.cs" line="10" column="17"/>
+    <location file="src/OldPhonePadApp/OldPhonePadProcessor.cs" line="1" column="13"/>
   </compounddef>
 </doxygen>

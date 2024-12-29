@@ -2,7 +2,7 @@
 PROJECT_NAME = "OldPhonePadApp"
 
 # Input Directory
-INPUT = ./src   # Specify the source directory of your project
+INPUT = ./src/OldPhonePadApp   # Specify the source directory of your project
 
 # File Extensions
 FILE_PATTERNS = *.cs  # Include only C# files
