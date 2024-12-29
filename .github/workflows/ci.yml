@@ -35,29 +35,30 @@ jobs:
           name: code-coverage-report
           path: $(System.DefaultWorkingDirectory)/TestResults/
 
-  generate-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+generate-docs:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Install Doxygen
-        run: sudo apt-get install -y doxygen
+    - name: Install Doxygen
+      run: sudo apt-get install -y doxygen
 
-      - name: Generate Documentation
-        run: doxygen Doxyfile
+    - name: Generate Documentation
+      run: doxygen Doxyfile
 
-      - name: Upload Documentation
-        uses: actions/upload-artifact@v3
-        with:
-          name: documentation
-          path: src/OldPhonePadApp/docs/html
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: src/OldPhonePadApp/docs/html
+
 
   create-release:
     if: github.event_name == 'push'
-    needs: [build-test]
+    needs: [ build-test ]
     runs-on: windows-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -67,14 +68,14 @@ jobs:
         with:
           dotnet-version: '9.0'
 
-      - name: Publish Windows Executable
+      - name: Publish Executable
         run: |
-          dotnet publish src/OldPhonePadApp/OldPhonePadApp.csproj \
-            -c Release \
-            -r win-x64 \
-            --self-contained true \
-            /p:PublishSingleFile=true \
-            /p:PublishTrimmed=true \
+          dotnet publish src/OldPhonePadApp/OldPhonePadApp.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            /p:PublishSingleFile=true `
+            /p:PublishTrimmed=true `
             -o ./publish
 
       - name: Create GitHub Release
