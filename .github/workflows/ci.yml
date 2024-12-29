@@ -36,7 +36,7 @@ jobs:
           path: $(System.DefaultWorkingDirectory)/TestResults/
 
       - name: Format Code
-        run: dotnet format src/OldPhonePadApp/OldPhonePadApp.sln --check
+        run: dotnet format --verify-no-changes
 
   generate-docs:
     runs-on: ubuntu-latest
