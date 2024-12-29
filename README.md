@@ -17,6 +17,16 @@ The application was designed to handle inputs that include:
 - Comprehensive unit tests covering valid and invalid scenarios.
 - GitHub Actions CI/CD pipeline integration for automated testing and deployment.
 - Code coverage reporting.
+- Automatically generated documentation.
+
+## Demo
+
+Documentation: https://devshridhar.github.io/OldPhonePadApp/index.html
+
+EXE File: https://github.com/devshridhar/OldPhonePadApp/releases/download/main/OldPhonePadApp.exe
+
+### Online Documentation
+The generated documentation for the project can be accessed [here](https://devshridhar.github.io/OldPhonePadApp/index.html).
 
 ---
 
@@ -40,16 +50,16 @@ The application was designed to handle inputs that include:
    Ensure you have .NET SDK 9.0 or later installed. You can download it from the [official .NET site](https://dotnet.microsoft.com/download).
 
 3. **Install Doxygen** (for documentation):
-    - **Linux**:
-      ```bash
-      sudo apt-get install doxygen
-      ```
-    - **Mac**:
-      ```bash
-      brew install doxygen
-      ```
-    - **Windows**:
-      Download and install from the [Doxygen official site](http://www.doxygen.nl/download.html).
+   - **Linux**:
+     ```bash
+     sudo apt-get install doxygen
+     ```
+   - **Mac**:
+     ```bash
+     brew install doxygen
+     ```
+   - **Windows**:
+     Download and install from the [Doxygen official site](http://www.doxygen.nl/download.html).
 
 ---
 
@@ -80,7 +90,7 @@ Generate a detailed HTML-based documentation using Doxygen:
 cd src/OldPhonePadApp
 doxygen Doxyfile
 ```
-Open `docs/html/index.html` in a browser to view the documentation.
+Open `docs/html/index.html` in a browser to view the documentation or access it online [here](https://devshridhar.github.io/OldPhonePadApp/index.html).
 
 ---
 
@@ -90,16 +100,17 @@ The project uses GitHub Actions to automate the CI/CD pipeline. The `ci.yml` wor
 
 ### Workflow Features:
 1. **Automated Testing**:
-    - Runs tests on every push or pull request to the `main` branch.
+   - Runs tests on every push or pull request to the `main` branch.
 2. **Code Coverage**:
-    - Generates a coverage report using `dotnet test` with `XPlat Code Coverage`.
-    - Uploads the coverage report as an artifact.
+   - Generates a coverage report using `dotnet test` with `XPlat Code Coverage`.
+   - Uploads the coverage report as an artifact.
 3. **Code Formatting**:
-    - Verifies code formatting using `dotnet format`.
+   - Verifies code formatting using `dotnet format`.
 4. **Documentation Generation**:
-    - Builds the documentation using Doxygen and uploads it as an artifact.
+   - Builds the documentation using Doxygen and deploys it to GitHub Pages.
 5. **Release Management**:
-    - Creates GitHub Releases for versioned tags.
+   - Creates GitHub Releases for versioned tags.
+   - The release page contains a downloadable Windows executable file that runs as a console application.
 
 ### Running the Workflow Locally
 If needed, you can replicate the CI steps locally:
@@ -123,21 +134,21 @@ dotnet format
 
 ### Core Application
 - **Microsoft.Extensions.Logging**:
-    - Provides structured and configurable logging.
-    - Enables seamless logging in both development and production environments.
+   - Provides structured and configurable logging.
+   - Enables seamless logging in both development and production environments.
 
 ### Unit Testing
 - **xUnit**:
-    - A modern and widely-used testing framework.
-    - Handles both simple and complex test cases effectively.
+   - A modern and widely-used testing framework.
+   - Handles both simple and complex test cases effectively.
 
 ### Additional Tools
 - **StyleCop.Analyzers**:
-    - Ensures adherence to coding standards and best practices.
+   - Ensures adherence to coding standards and best practices.
 - **Microsoft.NET.Test.Sdk**:
-    - Integrates xUnit tests with the .NET ecosystem.
+   - Integrates xUnit tests with the .NET ecosystem.
 - **Doxygen**:
-    - Generates detailed and interactive documentation for the codebase.
+   - Generates detailed and interactive documentation for the codebase.
 
 ---
 
@@ -145,30 +156,33 @@ dotnet format
 
 ### Best Practices Followed
 1. **Dependency Injection**:
-    - Logger injection ensures modularity and testability.
-    - Code is decoupled and easy to extend.
+   - Logger injection ensures modularity and testability.
+   - Code is decoupled and easy to extend.
 
 2. **Robust Error Handling**:
-    - Input validations prevent undefined behaviors.
-    - Comprehensive handling of edge cases.
+   - Input validations prevent undefined behaviors.
+   - Comprehensive handling of edge cases.
 
 3. **Unit Testing**:
-    - Covers various scenarios including:
-        - Valid and invalid inputs.
-        - Multiple backspaces.
-        - Complex sequences like `222 2 22#`.
-    - Includes logging for test clarity.
+   - Covers various scenarios including:
+      - Valid and invalid inputs.
+      - Multiple backspaces.
+      - Complex sequences like `222 2 22#`.
+   - Includes logging for test clarity.
 
 4. **Code Formatting**:
-    - Follows consistent and maintainable coding standards.
-    - StyleCop ensures adherence to best practices.
+   - Follows consistent and maintainable coding standards.
+   - StyleCop ensures adherence to best practices.
 
 5. **Code Coverage**:
-    - Integrated with GitHub Actions.
-    - Generates detailed HTML reports.
+   - Integrated with GitHub Actions.
+   - Generates detailed HTML reports.
 
 6. **Documentation**:
-    - Uses Doxygen to generate detailed documentation.
+   - Uses Doxygen to generate detailed documentation.
+
+7. **Windows Executable**:
+   - Publishes a self-contained Windows executable file.
 
 ---
 
