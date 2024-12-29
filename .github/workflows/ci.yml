@@ -57,7 +57,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [ build-test ]
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -77,12 +77,16 @@ jobs:
             /p:PublishTrimmed=true `
             -o ./publish
 
+      - name: Generate Unique Tag
+        id: tag
+        run: echo "tag=${{ github.ref_name }}-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body: "Release for ${{ github.ref_name }}"
+          tag: ${{ env.tag }}
+          name: Release ${{ env.tag }}
+          body: "Release for ${{ env.tag }}"
           artifacts: ./publish/**
           token: ${{ secrets.GITHUB_TOKEN }}
           updateOnlyUnreleased: true
