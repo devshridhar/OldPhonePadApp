@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "documentationRules": {
+      "companyName": "OldPhonePadApp",
+      "copyrightText": "Copyright (c) OldPhonePadApp. All rights reserved.",
+      "documentExposedElements": true,
+      "documentInternalElements": false,
+      "documentPrivateElements": false,
+      "documentInterfaces": true,
+      "fileNamingConvention": "stylecop",
+      "xmlHeader": true,
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace",
+      "elementOrder": [
+        "kind",
+        "accessibility",
+        "readonly"
+      ]
+    },
+    "readabilityRules": {
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "require"
+    }
+  }
+}

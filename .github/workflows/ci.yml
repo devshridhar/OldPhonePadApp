@@ -1,0 +1,90 @@
+name: .NET CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Setup .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0'
+
+      # Restore dependencies
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      # Build the application
+      - name: Build
+        run: dotnet build --no-restore --configuration Debug
+
+      # Run tests with coverage
+      - name: Run Tests with Coverage
+        run: dotnet test --collect:"XPlat Code Coverage"
+
+      # Generate Coverage Report
+      - name: Generate Coverage Report
+        run: |
+          dotnet tool install -g dotnet-reportgenerator-globaltool
+          reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage -reporttypes:Html
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage
+
+      # Check code formatting
+      - name: Check Code Formatting
+        run: dotnet format --verify-no-changes
+
+  documentation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: docs/
+
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0'
+
+      - name: Build for Release
+        run: dotnet publish --configuration Release --output ./publish
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: ./publish/**

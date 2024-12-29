@@ -1,0 +1,21 @@
+# Project Name
+PROJECT_NAME = "OldPhonePadApp"
+
+# Input Directory
+INPUT = ./src   # Specify the source directory of your project
+
+# File Extensions
+FILE_PATTERNS = *.cs  # Include only C# files
+
+# Output Directory
+OUTPUT_DIRECTORY = docs
+
+# Include XML Comments
+EXTRACT_ALL = NO      # Only include entities with proper comments
+EXTRACT_PRIVATE = NO  # Exclude private members
+EXTRACT_STATIC = YES  # Include static members
+
+# Documentation Formats
+GENERATE_HTML = YES   # Enable HTML documentation
+GENERATE_LATEX = NO   # Disable LaTeX (PDF)
+GENERATE_XML = YES    # Enable XML documentation
